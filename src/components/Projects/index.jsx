@@ -8,10 +8,12 @@ function ProjectStrip({ project, index }) {
   const [overlayOpen, setOverlayOpen] = useState(false);
 
   return (
-    <>
+    <div
+      className="p-strip-wrapper reveal"
+      style={{ '--stagger': `${index * 0.1}s` }}
+    >
       <article
-        className={`p-strip reveal ${hovered ? 'p-strip--hovered' : ''}`}
-        style={{ '--stagger': `${index * 0.1}s` }}
+        className={`p-strip ${hovered ? 'p-strip--hovered' : ''}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => setOverlayOpen(true)}
@@ -62,7 +64,7 @@ function ProjectStrip({ project, index }) {
       {overlayOpen && (
         <ProjectOverlay project={project} onClose={() => setOverlayOpen(false)} />
       )}
-    </>
+    </div>
   );
 }
 

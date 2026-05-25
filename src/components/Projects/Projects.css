@@ -11,17 +11,16 @@
 }
 
 /* ── Scroll reveal for strips (gated by in-view) ── */
-.p-strip.reveal {
+.p-strip-wrapper.reveal {
   opacity: 0;
   transform: translateY(50px);
   transition:
     opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--stagger, 0s),
-    transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--stagger, 0s),
-    padding 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    background 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--stagger, 0s);
+  width: 100%;
 }
 
-.p-strip.reveal.in-view {
+.p-strip-wrapper.reveal.in-view {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
@@ -38,7 +37,7 @@
     background 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.p-strip:first-child {
+.p-strip-wrapper:first-child .p-strip {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
