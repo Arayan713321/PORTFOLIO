@@ -58,7 +58,7 @@ export const PROJECTS = [
     year:     '2025',
     tags:     ['Shopify', 'E-Commerce', 'Live'],
     badge:    null,
-    image:    null,
+    image:    '/assets/images/truth-beauty-preview.png',
     stack:    ['Shopify', 'Liquid', 'Eurus Theme', 'CSS', 'Core Web Vitals'],
     description:
       'Customized Eurus Theme for a live US skincare brand. Built 4 custom Liquid sections with responsive typography (CSS clamp), improved LCP with lazy loading and responsive srcset.',
@@ -72,7 +72,7 @@ export const PROJECTS = [
     year:     '2024',
     tags:     ['Mobile', 'Flutter', 'Android'],
     badge:    null,
-    image:    null,
+    image:    '/assets/images/flutter-suite-preview.png',
     stack:    ['Flutter', 'Dart', 'Clean Architecture', 'Local Storage', 'Android'],
     description:
       'Multiple production Flutter apps including task managers, journaling, and event management. Offline storage, clean architecture, optimized state management.',
