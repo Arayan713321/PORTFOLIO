@@ -61,7 +61,7 @@ export function About() {
           {/* Left: photo */}
           <div className="about-photo reveal-left">
             <img
-              src="/assets/images/arayan-profile.png"
+              src="/assets/images/Gemini_Generated_Image_fw2sflfw2sflfw2s.png"
               alt="Arayan Kumar Shaw"
               loading="lazy"
             />
