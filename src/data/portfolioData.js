@@ -63,7 +63,7 @@ export const PROJECTS = [
     description:
       'Customized Eurus Theme for a live US skincare brand. Built 4 custom Liquid sections with responsive typography (CSS clamp), improved LCP with lazy loading and responsive srcset.',
     github:   null,
-    live:     'https://truthandbeautyus.com',
+    live:     'https://us.trytruthandbeauty.com/',
   },
   {
     id:       '04',
@@ -76,7 +76,7 @@ export const PROJECTS = [
     stack:    ['Flutter', 'Dart', 'Clean Architecture', 'Local Storage', 'Android'],
     description:
       'Multiple production Flutter apps including task managers, journaling, and event management. Offline storage, clean architecture, optimized state management.',
-    github:   'https://github.com/Arayan713321',
+    github:   'https://github.com/Arayan713321/Flutter-Projects',
     live:     null,
   },
 ];
