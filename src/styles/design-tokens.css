@@ -26,9 +26,9 @@
     --color-accent-tertiary: #f59e0b;
 
     /* Gradient Colors */
-    --gradient-primary: linear-gradient(135deg, #00f0ff 0%, #a855f7 100%);
+    --gradient-primary: linear-gradient(135deg, #00f0ff 0%, #a855f7 50%, #ff007f 100%);
     --gradient-secondary: linear-gradient(135deg, #ff7b00 0%, #ffae00 100%);
-    --gradient-cyber: linear-gradient(90deg, #00f0ff, #a855f7, #ff7b00, #00f0ff);
+    --gradient-cyber: linear-gradient(90deg, #00f0ff, #a855f7, #ff007f, #00f0ff);
     --gradient-subtle: linear-gradient(180deg, rgba(0, 240, 255, 0.08) 0%, rgba(168, 85, 247, 0.03) 100%);
 
     /* Border Colors */
@@ -185,14 +185,14 @@
     --color-bg-overlay: rgba(248, 250, 252, 0.95);
 
     /* Text Colors */
-    --color-text-primary: #0f172a;
-    --color-text-secondary: #334155;
-    --color-text-tertiary: #64748b;
-    --color-text-muted: #94a3b8;
+    --color-text-primary: #020617;
+    --color-text-secondary: #1e293b;
+    --color-text-tertiary: #475569;
+    --color-text-muted: #64748b;
 
     /* Border Colors */
-    --color-border-primary: #cbd5e1;
-    --color-border-secondary: #e2e8f0;
+    --color-border-primary: #94a3b8;
+    --color-border-secondary: #cbd5e1;
     --color-border-accent: #06b6d4;
 
     /* Shadows - lighter for light mode */

@@ -1,0 +1,117 @@
+.skills { background: #050508; overflow: hidden; }
+
+.skills-title {
+  margin-bottom: 48px;
+  font-size: 0.72rem;
+}
+
+/* Marquee rows */
+.skills-marquees {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 64px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.sk-marquee-outer {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 18px 0;
+}
+
+.sk-marquee-outer:first-child {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.sk-marquee-track {
+  display: inline-flex;
+  animation: marquee-left 22s linear infinite;
+}
+
+.sk-marquee-right {
+  animation: marquee-right 28s linear infinite;
+}
+
+.sk-marquee-track span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+  letter-spacing: 3px;
+  color: rgba(232, 234, 240, 0.15);
+  text-transform: uppercase;
+  padding-right: 60px;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.sk-card {
+  padding: 28px 24px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.sk-card:hover {
+  border-color: rgba(0,212,255,0.25);
+  transform: translateY(-4px);
+}
+
+.sk-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sk-icon { font-size: 1.2rem; }
+
+.sk-title {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e8eaf0;
+  letter-spacing: 0.5px;
+}
+
+.sk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sk-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: #4b5563;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 4px 10px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.sk-card:hover .sk-chip {
+  color: rgba(232,234,240,0.6);
+  border-color: rgba(255,255,255,0.1);
+}
+
+@media (max-width: 900px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}

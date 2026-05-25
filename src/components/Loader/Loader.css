@@ -1,0 +1,124 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #050508;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.loader.wiping {
+  animation: loaderWipe 0.6s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+@keyframes loaderWipe {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(0 0 100% 0); }
+}
+
+/* Center content */
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: fadeIn 0.6s ease;
+}
+
+.loader-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.loader-init {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  letter-spacing: 8px;
+  color: rgba(232, 234, 240, 0.5);
+  text-transform: uppercase;
+  animation: fadeIn 0.8s ease 0.2s both;
+}
+
+.loader-version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: #00d4ff;
+  opacity: 0.7;
+  animation: fadeIn 0.8s ease 0.4s both;
+}
+
+/* Progress bar */
+.loader-bar-track {
+  width: clamp(240px, 30vw, 360px);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+
+.loader-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #00d4ff;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.8);
+  transition: width 0.05s linear;
+}
+
+.loader-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 600;
+  color: var(--text, #e8eaf0);
+  letter-spacing: 4px;
+  animation: fadeIn 0.5s ease 0.5s both;
+}
+
+.loader-pct {
+  color: #00d4ff;
+  font-size: 0.7em;
+  margin-left: 2px;
+}
+
+/* Bottom marquee */
+.loader-marquee-wrapper {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: fadeIn 0.8s ease 0.8s both;
+}
+
+.loader-marquee-track {
+  display: inline-flex;
+  animation: marquee-left 20s linear infinite;
+}
+
+.loader-marquee-track span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  letter-spacing: 4px;
+  color: rgba(232, 234, 240, 0.2);
+  text-transform: uppercase;
+  padding-right: 0;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

@@ -56,6 +56,10 @@ body.cursor-click .custom-cursor {
     position: relative;
     transition: all var(--transition-base);
     display: inline-block;
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    vertical-align: top;
 }
 
 .cert-link::after {
@@ -99,19 +103,21 @@ body.cursor-click .custom-cursor {
 }
 
 .project-card:hover::before {
-    opacity: 0.3;
-    animation: borderGlow 2s ease-in-out infinite;
+    opacity: 0.75;
+    animation: borderGlow 2.5s ease-in-out infinite;
+    filter: blur(8px);
 }
 
 @keyframes borderGlow {
-
     0%,
     100% {
-        opacity: 0.2;
+        opacity: 0.45;
+        transform: scale(0.99);
     }
 
     50% {
-        opacity: 0.4;
+        opacity: 0.85;
+        transform: scale(1.02);
     }
 }
 
@@ -474,5 +480,311 @@ textarea:focus-visible {
 
     body {
         cursor: auto;
+    }
+}
+
+/* ===== Cinematic Cyber Grid & Hologram Sweep (Cool Cyberpunk Upgrades) ===== */
+.cyber-grid-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 55%;
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center;
+    transform: perspective(300px) rotateX(65deg);
+    transform-origin: bottom;
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    pointer-events: none;
+    z-index: 1;
+    animation: gridScroll 15s linear infinite;
+}
+
+@keyframes gridScroll {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 400px;
+    }
+}
+
+.cyber-badge {
+    display: inline-block;
+    font-family: var(--font-system);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent-secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-2);
+    background: rgba(168, 85, 247, 0.06);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    padding: var(--spacing-1) var(--spacing-3);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);
+    animation: breathingGlow 3s ease-in-out infinite;
+}
+
+@keyframes breathingGlow {
+    0%, 100% {
+        border-color: rgba(168, 85, 247, 0.2);
+        box-shadow: 0 0 5px rgba(168, 85, 247, 0.05);
+    }
+    50% {
+        border-color: rgba(168, 85, 247, 0.4);
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+    }
+}
+
+.image-wrapper::after,
+.about-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--color-accent-primary);
+    box-shadow: 0 0 12px var(--color-accent-primary), 0 0 25px var(--color-accent-primary);
+    opacity: 0.8;
+    animation: laserScan 5s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 2px;
+    z-index: 2;
+}
+
+.about-image::after {
+    width: 100%;
+    border-radius: var(--radius-2xl);
+}
+
+@keyframes laserScan {
+    0%, 100% {
+        top: 0%;
+        opacity: 0;
+    }
+    5%, 95% {
+        opacity: 0.8;
+    }
+    50% {
+        top: 100%;
+    }
+}
+
+/* ===== High-Fidelity Theme Switch Shockwave Flash & CRT Glitch Recalibration ===== */
+
+.theme-switch-flash {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    z-index: 999999;
+}
+
+.theme-switch-flash.animate-dark-to-light {
+    background: radial-gradient(circle, #ffffff 10%, var(--color-neon-cyan) 40%, var(--color-neon-purple) 70%, rgba(168, 85, 247, 0) 100%);
+    box-shadow: 0 0 80px rgba(0, 240, 255, 0.8), 0 0 150px rgba(168, 85, 247, 0.5);
+    animation: flashDarkToLight 1.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+}
+
+.theme-switch-flash.animate-light-to-dark {
+    background: radial-gradient(circle, var(--color-bg-primary) 20%, var(--color-neon-purple) 50%, var(--color-neon-cyan) 80%, rgba(0, 240, 255, 0) 100%);
+    box-shadow: 0 0 80px rgba(168, 85, 247, 0.8), 0 0 150px rgba(0, 240, 255, 0.5);
+    animation: flashLightToDark 1.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+}
+
+@keyframes flashDarkToLight {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    45% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(250);
+        opacity: 0;
+    }
+}
+
+@keyframes flashLightToDark {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    45% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(250);
+        opacity: 0;
+    }
+}
+
+.cyber-recalibration-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1000000;
+    opacity: 0;
+}
+
+.cyber-recalibration-overlay.flash {
+    /* Full-screen analog-to-digital matrix glitches */
+    background: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 6px, 8px 100%;
+    animation: recalibrateGlitch 2.0s ease-out forwards;
+}
+
+.cyber-recalibration-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 240, 255, 0.03);
+    backdrop-filter: blur(4px) contrast(1.15);
+    opacity: 0;
+    animation: overlayBlur 2.0s ease-out forwards;
+}
+
+.cyber-recalibration-overlay::after {
+    content: '[ SYSTEM RECALIBRATION ]\nCORE STATE: CHANGING\nVOLTAGE: NOMINAL';
+    white-space: pre;
+    font-family: var(--font-system);
+    font-size: var(--font-size-sm);
+    color: var(--color-neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.4);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    padding: var(--spacing-4) var(--spacing-8);
+    background: rgba(3, 7, 18, 0.92);
+    border: 2px solid var(--color-neon-cyan);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.35), inset 0 0 20px rgba(0, 240, 255, 0.15);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    opacity: 0;
+    animation: overlayHUD 2.0s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    letter-spacing: 2px;
+    line-height: var(--line-height-relaxed);
+}
+
+[data-theme="light"] .cyber-recalibration-overlay::after {
+    color: var(--color-neon-purple);
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 0 20px rgba(168, 85, 247, 0.4);
+    border-color: var(--color-neon-purple);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.35), inset 0 0 20px rgba(168, 85, 247, 0.15);
+}
+
+@keyframes recalibrateGlitch {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    5% {
+        opacity: 1;
+        background-color: rgba(0, 240, 255, 0.1);
+    }
+    10% {
+        opacity: 0.8;
+        background-color: rgba(168, 85, 247, 0.08);
+        transform: skewX(1deg);
+    }
+    15% {
+        opacity: 1;
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: skewX(-1deg);
+    }
+    20% {
+        opacity: 0.9;
+        background-color: transparent;
+        transform: skewX(0deg);
+    }
+    35% {
+        opacity: 1;
+        transform: scaleY(1.01);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scaleY(1);
+    }
+    75% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.2;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes overlayBlur {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    10% {
+        opacity: 1;
+        backdrop-filter: blur(3px);
+    }
+    75% {
+        opacity: 1;
+        backdrop-filter: blur(3px);
+    }
+    90% {
+        opacity: 0.5;
+        backdrop-filter: blur(1.5px);
+    }
+    100% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+}
+
+@keyframes overlayHUD {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+        filter: hue-rotate(-60deg);
+    }
+    8% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.03);
+        filter: hue-rotate(0deg);
+    }
+    12% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    75% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) skew(0deg);
+    }
+    80% {
+        transform: translate(-50%, -50%) scale(1) skew(5deg);
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+    100% {
+        opacity: 0;
     }
 }

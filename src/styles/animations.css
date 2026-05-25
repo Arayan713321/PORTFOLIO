@@ -1,0 +1,109 @@
+/* ============================================================
+   ANIMATIONS — Global keyframes & reusable animation classes
+   ============================================================ */
+
+/* ── Marquee ── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Word clip reveal (Hero) ── */
+@keyframes wordUp {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+
+/* ── Fade in ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Float (profile image) ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
+
+/* ── Glow pulse ── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.3), 0 0 40px rgba(0,212,255,0.1); }
+  50%       { box-shadow: 0 0 40px rgba(0,212,255,0.6), 0 0 80px rgba(0,212,255,0.2); }
+}
+
+/* ── Cursor ring ── */
+@keyframes cursorAppear {
+  from { transform: translate(-50%,-50%) scale(0); opacity: 0; }
+  to   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+}
+
+/* ── Loader progress ── */
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ── Vertical wipe reveal ── */
+@keyframes wipeUp {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(100% 0 0 0); }
+}
+
+/* ── Counter tick ── */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Spin ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Project strip hover reveal ── */
+@keyframes slideFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* ── Scroll reveal utility ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }

@@ -42,10 +42,13 @@ class SplashScreen {
       </div>
       <div class="splash-content">
         <div class="splash-profile">
-          <img src="/assets/images/ChatGPT Image May 24, 2026, 11_14_05 PM.png" alt="Arayan Kumar Shaw" class="splash-profile-img" />
+          <img src="/assets/images/arayan-profile.png" alt="Arayan Kumar Shaw" class="splash-profile-img" />
         </div>
         <h1 class="splash-logo">Arayan Kumar Shaw</h1>
         <p class="splash-tagline">Mobile, Full-Stack & AI Engineer</p>
+        <div class="splash-progress">
+          <div class="splash-progress-fill"></div>
+        </div>
       </div>
     `;
 

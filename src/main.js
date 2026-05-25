@@ -83,21 +83,9 @@ const projectsData = [
 
 const experienceData = [
   {
-    role: 'Freelance Software Developer',
-    company: 'Self-Employed',
-    date: '2024 - Present',
-    description: 'Architecting and shipping production-ready mobile apps and high-performance e-commerce platforms for international startup clients.',
-    achievements: [
-      'Shipped 10+ custom cross-platform applications using Flutter & React Native with 100% on-time delivery.',
-      'Engineered custom Shopify Liquid templates and backend app pipelines, improving store load speeds by 40% and conversion rates by 12%.',
-      'Developed scalable REST APIs and serverless backends integrated with OpenAI models to automate customer onboarding.',
-      'Optimized mobile app bundle sizes by 30% and introduced offline caching mechanisms utilizing SQLite and Hive.'
-    ]
-  },
-  {
     role: 'Web Developer',
     company: 'Pure Cosmeceuticals Pvt. Ltd.',
-    date: 'Aug 2025 - Present',
+    date: 'Oct 2025 - May 2026',
     description: 'Leading e-commerce architecture optimization and advanced front-end modules.',
     achievements: [
       'Optimized Shopify storefront databases and assets, resulting in a 35% reduction in bounce rate.',
@@ -582,10 +570,10 @@ function initTypingEffect() {
   if (!typingElement) return;
 
   const roles = [
-    'Mobile-First Full-Stack Developer',
-    'React Native & Flutter Specialist',
-    'AI Solutions Integrator',
-    'Freelance Software Engineer'
+    'Mobile & Full-Stack Developer',
+    'React Native & Flutter Expert',
+    'AI Solutions Engineer',
+    'Computer Science Engineer'
   ];
 
   let roleIndex = 0;
@@ -657,6 +645,121 @@ function initContactForm() {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalContent;
     }, 1800);
+  });
+}
+
+// ===== Light/Dark Theme Toggle persistence =====
+function initThemeToggle() {
+  const themeToggle = document.getElementById('themeToggle');
+  if (!themeToggle) return;
+
+  // Set default theme or read cached preference
+  const cachedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', cachedTheme);
+  updateThemeIcon(cachedTheme);
+
+  themeToggle.addEventListener('click', (e) => {
+    const activeTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+    
+    // Capture click coordinates or fallback to button center
+    const rect = themeToggle.getBoundingClientRect();
+    const x = e.clientX || (rect.left + rect.width / 2);
+    const y = e.clientY || (rect.top + rect.height / 2);
+
+    // Create expanding shockwave flash node
+    const flash = document.createElement('div');
+    flash.className = `theme-switch-flash ${activeTheme === 'dark' ? 'animate-dark-to-light' : 'animate-light-to-dark'}`;
+    flash.style.left = `${x}px`;
+    flash.style.top = `${y}px`;
+
+    // Create glitch recalibration overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'cyber-recalibration-overlay flash';
+
+    document.body.appendChild(flash);
+    document.body.appendChild(overlay);
+
+    // Theme update at peak of neon sweep (600ms)
+    setTimeout(() => {
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    }, 600);
+
+    // Node cleanup
+    setTimeout(() => {
+      flash.remove();
+      overlay.remove();
+    }, 2000);
+  });
+
+  function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    if (icon) {
+      icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+  }
+}
+
+// ===== Mobile View More / Section Collapsibility (Scroll Height Reduction) =====
+function initViewMoreToggles() {
+  // Projects toggle
+  const btnProjects = document.getElementById('btnToggleProjects');
+  const projectsGrid = document.getElementById('projectsGrid');
+  const projectsContainer = document.getElementById('projectsViewMoreContainer');
+
+  btnProjects?.addEventListener('click', () => {
+    const isCollapsed = projectsGrid.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+      projectsGrid.classList.remove('collapsed');
+      projectsContainer.classList.add('expanded');
+      btnProjects.querySelector('span').textContent = 'Show Less';
+      showToast('Loaded all projects!', 'success');
+    } else {
+      projectsGrid.classList.add('collapsed');
+      projectsContainer.classList.remove('expanded');
+      btnProjects.querySelector('span').textContent = 'View All Projects';
+      
+      // Smooth scroll back to projects section header to avoid losing context
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        window.scrollTo({
+          top: projectsSection.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    }
+  });
+
+  // Skills toggle
+  const btnSkills = document.getElementById('btnToggleSkills');
+  const skillsGrid = document.getElementById('skillsGrid');
+  const skillsContainer = document.getElementById('skillsViewMoreContainer');
+
+  btnSkills?.addEventListener('click', () => {
+    const isCollapsed = skillsGrid.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+      skillsGrid.classList.remove('collapsed');
+      skillsContainer.classList.add('expanded');
+      btnSkills.querySelector('span').textContent = 'Show Less';
+      showToast('Loaded all skills!', 'success');
+    } else {
+      skillsGrid.classList.add('collapsed');
+      skillsContainer.classList.remove('expanded');
+      btnSkills.querySelector('span').textContent = 'View All Skills';
+      
+      // Smooth scroll back to skills section header to avoid losing context
+      const skillsSection = document.getElementById('skills');
+      if (skillsSection) {
+        window.scrollTo({
+          top: skillsSection.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    }
   });
 }
 
@@ -770,6 +873,9 @@ function showToast(message, type = 'success') {
 // ===== Initialize =====
 
 async function init() {
+  // Initialize theme toggle immediately to avoid flash of dark theme
+  initThemeToggle();
+
   // Show splash screen first (only on first visit)
   await splashScreen.show();
 
@@ -799,6 +905,7 @@ async function init() {
   // Initialize dynamic JS features
   initTypingEffect();
   initContactForm();
+  initViewMoreToggles();
 }
 
 // Run on DOM ready

@@ -1,0 +1,140 @@
+.contact {
+  position: relative;
+  min-height: 80vh;
+  background: #050508;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 120px 0;
+}
+
+/* Radial cyan glow */
+.contact-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 212, 255, 0.06) 0%,
+    rgba(0, 212, 255, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.contact-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 4px;
+  color: #00d4ff;
+  text-transform: uppercase;
+}
+
+/* Giant headline */
+.contact-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.ch-line {
+  display: block;
+  font-family: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+  font-size: clamp(4rem, 12vw, 11rem);
+  line-height: 0.88;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #e8eaf0;
+}
+
+.ch-line-2 {
+  background: linear-gradient(135deg, #e8eaf0 0%, #00d4ff 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Email row */
+.contact-email-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact-email {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  font-weight: 400;
+  color: #00d4ff;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.25);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-email:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.copy-btn {
+  font-size: 1.1rem;
+  color: rgba(0, 212, 255, 0.5);
+  background: none;
+  border: 1px solid rgba(0,212,255,0.2);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  cursor: none;
+}
+
+.copy-btn:hover {
+  color: #00d4ff;
+  border-color: rgba(0,212,255,0.5);
+}
+
+/* Social links */
+.contact-socials {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #4b5563;
+  transition: color 0.25s ease;
+}
+
+.social-link:hover { color: #e8eaf0; }
+
+.social-sep {
+  color: rgba(75, 85, 99, 0.4);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .contact-email-wrap { flex-direction: column; align-items: flex-start; }
+  .contact-socials { gap: 10px; }
+}

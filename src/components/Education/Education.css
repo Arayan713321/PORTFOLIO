@@ -1,0 +1,178 @@
+.education {
+  background: #050508;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2-col grid */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ── Left column ── */
+.edu-left {
+  position: relative;
+}
+
+.edu-bg-text {
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(4rem, 8vw, 7rem);
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.edu-card {
+  position: relative;
+  z-index: 1;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edu-degree {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 700;
+  color: #e8eaf0;
+  line-height: 1.35;
+}
+
+.edu-institution {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: #00d4ff;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.edu-meta-row {
+  display: flex;
+  gap: 32px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+}
+
+.edu-period,
+.edu-location {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: rgba(232, 234, 240, 0.5);
+}
+
+.edu-meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #4b5563;
+  margin-bottom: 2px;
+}
+
+/* CGPA Badge */
+.edu-cgpa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #4b5563;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 100px;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+.edu-cgpa-badge span {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 1.25rem;
+  color: #00d4ff;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/* ── Right column ── */
+.edu-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edu-cert-label {
+  margin-bottom: 8px;
+}
+
+.edu-certs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edu-cert-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.edu-cert-card:hover {
+  border-color: rgba(0, 212, 255, 0.3);
+  transform: translateX(6px);
+}
+
+.edu-cert-check {
+  font-size: 0.75rem;
+  color: #00d4ff;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.edu-cert-name {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: rgba(232, 234, 240, 0.7);
+  line-height: 1.4;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .edu-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .edu-bg-text {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .edu-card { padding: 24px 20px; }
+  .edu-meta-row { flex-direction: column; gap: 16px; }
+}
