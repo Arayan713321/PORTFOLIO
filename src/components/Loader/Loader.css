@@ -122,3 +122,18 @@
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+@keyframes flash {
+  0%   { opacity: 0; }
+  40%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.loader-flash {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 999999;
+  animation: flash 0.15s ease-out forwards;
+  pointer-events: none;
+}

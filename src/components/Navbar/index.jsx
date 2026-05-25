@@ -23,6 +23,13 @@ export function Navbar() {
       setScrolled(y > 60);
       setHidden(y > lastY.current && y > 120);
       lastY.current = y;
+
+      const progressEl = document.querySelector('.scroll-progress');
+      if (progressEl) {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = totalHeight > 0 ? y / totalHeight : 0;
+        progressEl.style.width = `${progress * 100}%`;
+      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -50,6 +57,7 @@ export function Navbar() {
 
   return (
     <>
+      <div className="scroll-progress" />
       <nav className={`nav ${scrolled ? 'scrolled' : ''} ${hidden ? 'hidden' : ''}`}>
         <div className="nav-inner container">
           {/* Monogram */}

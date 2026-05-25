@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PROJECTS } from '../../data/portfolioData';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
+import { MatrixText } from '../MatrixText';
 import './Projects.css';
 
 function ProjectStrip({ project, index }) {
@@ -164,7 +165,9 @@ export function Projects() {
       <div className="container">
         <div className="section-header-row section-scan">
           <div>
-            <div className="section-label">Selected Work</div>
+            <div className="section-label">
+              <MatrixText text="SELECTED WORK" />
+            </div>
           </div>
           <div className="section-year">2023 — 2025</div>
         </div>

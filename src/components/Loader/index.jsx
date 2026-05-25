@@ -7,6 +7,7 @@ const REPEATED = MARQUEE_TEXT.repeat(8); // duplicate for seamless loop
 export function Loader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState('loading'); // loading | marquee | wiping
+  const [flash, setFlash] = useState(false);
   const tickRef = useRef(null);
 
   // Progress bar fills over 2.5s
@@ -22,7 +23,8 @@ export function Loader({ onComplete }) {
       if (pct < 100) {
         tickRef.current = requestAnimationFrame(tick);
       } else {
-        // Show marquee briefly then wipe
+        // Trigger fast cinematic white flash
+        setFlash(true);
         setTimeout(() => setPhase('wiping'), 600);
         setTimeout(() => onComplete?.(), 1000);
       }
@@ -34,6 +36,7 @@ export function Loader({ onComplete }) {
 
   return (
     <div className={`loader ${phase === 'wiping' ? 'wiping' : ''}`}>
+      {flash && <div className="loader-flash" />}
       <div className="loader-inner">
         {/* Top label */}
         <div className="loader-label">

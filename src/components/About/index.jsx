@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PERSONAL, STATS, ABOUT_TICKER } from '../../data/portfolioData';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
+import { MatrixText } from '../MatrixText';
 import './About.css';
 
 const TICKER_DISPLAY = [...ABOUT_TICKER, ...ABOUT_TICKER].join('  ·  ') + '  ·  ';
@@ -26,7 +27,7 @@ function AnimatedCounter({ target, suffix }) {
           if (pct < 1) {
             requestAnimationFrame(tick);
           } else {
-            setDone(true); // trigger plus-pulse
+            setDone(true);
           }
         };
         requestAnimationFrame(tick);
@@ -54,33 +55,36 @@ export function About() {
     <section id="about" className="about section-padding" ref={ref}>
       <div className="container">
         <div className="section-header-row section-scan">
-          <div className="section-label">About</div>
+          <div className="section-label">
+            <MatrixText text="ABOUT" />
+          </div>
+          <div className="section-year">©® AKS · v2025</div>
         </div>
 
         <div className="about-grid">
-          {/* Left: photo */}
+          {/* Left: Photo with desaturation */}
           <div className="about-photo reveal-left">
             <img
-              src="/assets/images/Gemini_Generated_Image_fw2sflfw2sflfw2s.png"
+              src="/assets/images/file_000000002bb4720987f47e5467a140ca.png"
               alt="Arayan Kumar Shaw"
               loading="lazy"
             />
           </div>
 
-          {/* Right: text */}
+          {/* Right: Rich text block */}
           <div className="about-text">
-            <p className="about-statement reveal">
-              I build intelligent apps that scale — from AI backends to cross-platform mobile experiences.
-            </p>
+            {/* Mixed-scale typography heading */}
+            <h3 className="about-statement-mixed reveal">
+              <span className="statement-serif">(Full-Stack / Mobile</span>
+              <span className="statement-bold">AI Engineer)</span>
+            </h3>
 
             <p className="about-bio reveal delay-1">
-              B.Tech CSE graduate from UEM Jaipur (Class of 2026, CGPA 7.5).
-              I've shipped production apps across AI, mobile, and e-commerce —
-              from RAG-powered career tools to live Shopify storefronts.
-              Currently available for full-time roles and freelance projects.
+              B.Tech CSE graduate from University of Engineering and Management, Jaipur (Class of 2026, CGPA 7.5).
+              I specialize in high-performance cross-platform mobile ecosystems, scalable full-stack web architectures, and advanced GenAI workflows. Shipped various production experiences including RAG career companions and live Shopify e-commerce engines.
             </p>
 
-            {/* Stats */}
+            {/* Stats block */}
             <div className="about-stats reveal delay-2">
               {STATS.map(s => (
                 <div className="stat-item" key={s.label}>
@@ -101,8 +105,8 @@ export function About() {
         </div>
       </div>
 
-      {/* Full-width scrolling ticker */}
-      <div className="about-ticker">
+      {/* Infinite scrolling ticker below */}
+      <div className="about-ticker-wrap">
         <div className="about-ticker-track">
           <span>{TICKER_DISPLAY}</span>
           <span aria-hidden>{TICKER_DISPLAY}</span>
