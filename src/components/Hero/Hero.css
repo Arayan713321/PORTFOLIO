@@ -248,9 +248,26 @@
     font-size: 2.4rem;
   }
   .hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
   .metric-val {
     font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-metrics {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+  .hero-roles {
+    justify-content: center;
+  }
+  .hero-ctas {
+    justify-content: center;
+    width: 100%;
   }
 }
