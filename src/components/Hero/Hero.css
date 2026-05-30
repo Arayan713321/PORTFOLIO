@@ -258,16 +258,30 @@
 }
 
 @media (max-width: 480px) {
-  .hero-metrics {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    text-align: center;
-  }
   .hero-roles {
     justify-content: center;
   }
+  
+  /* Stack CTA buttons vertically with uniform full width on small screens */
   .hero-ctas {
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Maintain a compact 2x2 grid on mobile viewports to prevent massive vertical space */
+  .hero-metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    text-align: center;
+    padding-top: 1.5rem;
   }
 }
