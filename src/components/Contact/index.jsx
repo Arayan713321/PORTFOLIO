@@ -1,188 +1,125 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PERSONAL } from '../../data/portfolioData';
-import { useScrollReveal } from '../../hooks/useScrollReveal';
 import './Contact.css';
 
 export function Contact() {
-  const ref = useScrollReveal();
-  const [copied, setCopied] = useState(false);
-  const emailRef = useRef(null);
-
-  // Form states
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [formFocused, setFormFocused] = useState({ name: false, email: false, message: false });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formStatus, setFormStatus] = useState(''); // success | error | ''
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(PERSONAL.email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // fallback
-    }
-  };
+  const [status, setStatus] = useState(''); // success | loading | ''
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFocus = (field) => {
-    setFormFocused(prev => ({ ...prev, [field]: true }));
-  };
-
-  const handleBlur = (field, val) => {
-    if (!val) {
-      setFormFocused(prev => ({ ...prev, [field]: false }));
-    }
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Mimic API submission
+    setStatus('loading');
     setTimeout(() => {
-      setIsSubmitting(false);
-      setFormStatus('success');
+      setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-      setFormFocused({ name: false, email: false, message: false });
-      setTimeout(() => setFormStatus(''), 4000);
-    }, 1200);
+      setTimeout(() => setStatus(''), 4000);
+    }, 1500);
   };
-
-  // Magnetic hover pull effect
-  useEffect(() => {
-    const el = emailRef.current;
-    if (!el) return;
-
-    const onMove = (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * 0.2;
-      const y = (e.clientY - rect.top - rect.height / 2) * 0.2;
-      el.style.transform = `translate(${x}px, ${y}px)`;
-      el.style.transition = 'transform 0.08s ease';
-    };
-
-    const onLeave = () => {
-      el.style.transform = 'translate(0, 0)';
-      el.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    };
-
-    el.addEventListener('mousemove', onMove);
-    el.addEventListener('mouseleave', onLeave);
-    return () => {
-      el.removeEventListener('mousemove', onMove);
-      el.removeEventListener('mouseleave', onLeave);
-    };
-  }, []);
 
   return (
-    <section id="contact" className="contact section-padding" ref={ref}>
+    <section id="contact">
+      <canvas id="contactCanvas" style={{ position: 'absolute', inset: 0, opacity: 0.3 }}></canvas>
       <div className="container contact-inner">
-        <div className="contact-label reveal">[ AVAILABLE FOR WORK ]</div>
+        <div className="s-label">Transmission</div>
+        <h2 className="s-title">Get In Touch</h2>
+        
+        <div className="contact-grid">
+          
+          {/* Left Column: Info & Links */}
+          <div className="contact-left">
+            <p>I build things that ship. Have a project you want to collaborate on or an open opportunity? Drop a secure transmission or send a message to my direct email link.</p>
+            
+            <div className="contact-links">
+              <a href={`mailto:${PERSONAL.email}`} className="contact-link">
+                <div className="contact-link-icon">📧</div>
+                <div>
+                  <span className="cl-label">Secure Email</span>
+                  <span className="cl-val">{PERSONAL.email}</span>
+                </div>
+              </a>
 
-        <h2 className="contact-headline reveal delay-1">
-          <span className="ch-line">Let's build</span>
-          <span className="ch-line ch-line-2">something.</span>
-        </h2>
+              <a href="https://wa.me/919064508660" target="_blank" rel="noopener noreferrer" className="contact-link">
+                <div className="contact-link-icon">💬</div>
+                <div>
+                  <span className="cl-label">WhatsApp</span>
+                  <span className="cl-val">{PERSONAL.phone}</span>
+                </div>
+              </a>
 
-        <div className="contact-divider reveal delay-2" />
-
-        {/* Email & copy button */}
-        <div className="contact-email-container reveal delay-2">
-          <div className="contact-magnetic-wrap">
-            <a
-              ref={emailRef}
-              href={`mailto:${PERSONAL.email}`}
-              className="contact-email"
-            >
-              {PERSONAL.email}
-            </a>
-          </div>
-          <button
-            className="copy-btn"
-            onClick={copyEmail}
-            aria-label="Copy email"
-            title="Copy email"
-          >
-            {copied ? '✓ COPIED' : '⎘ COPY'}
-          </button>
-        </div>
-
-        {/* Cheeky personality line */}
-        <p className="contact-cheeky reveal delay-2">
-          "I build things that ship. Drop a message and let's figure out the rest."
-        </p>
-
-        {/* Minimal line-style contact form */}
-        <form className="contact-form reveal delay-3" onSubmit={handleSubmit}>
-          <div className={`form-field ${formFocused.name || formData.name ? 'field-active' : ''}`}>
-            <label htmlFor="name" className="field-label">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              className="field-input"
-              value={formData.name}
-              onChange={handleInputChange}
-              onFocus={() => handleFocus('name')}
-              onBlur={(e) => handleBlur('name', e.target.value)}
-              required
-            />
-            <div className="field-line" />
+              <div className="contact-link">
+                <div className="contact-link-icon">📍</div>
+                <div>
+                  <span className="cl-label">Location</span>
+                  <span className="cl-val">Jaipur · India · Remote</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className={`form-field ${formFocused.email || formData.email ? 'field-active' : ''}`}>
-            <label htmlFor="email" className="field-label">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="field-input"
-              value={formData.email}
-              onChange={handleInputChange}
-              onFocus={() => handleFocus('email')}
-              onBlur={(e) => handleBlur('email', e.target.value)}
-              required
-            />
-            <div className="field-line" />
+          {/* Right Column: Glass Form */}
+          <div className="contact-form-panel">
+            <div className="avail-badge">Available for Opportunities</div>
+            <div className="form-title">[ INITIALIZE SECURE TRANSMISSION ]</div>
+            
+            <form onSubmit={handleSubmit}>
+              <div className="fg">
+                <label className="fl" htmlFor="name">Agent Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  placeholder="e.g. John Doe"
+                  className="fi" 
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required 
+                />
+              </div>
+
+              <div className="fg">
+                <label className="fl" htmlFor="email">Return Signal Address</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="e.g. agent@domain.com"
+                  className="fi" 
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required 
+                />
+              </div>
+
+              <div className="fg">
+                <label className="fl" htmlFor="message">Message Data payload</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  placeholder="Transmit your query details..."
+                  className="fi" 
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" className="btn btn-cyan" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }} disabled={status === 'loading'}>
+                {status === 'loading' ? 'TRANSMITTING...' : 'SEND SIGNAL ↗'}
+              </button>
+
+              {status === 'success' && (
+                <p style={{ color: '#39FF6E', fontSize: '0.72rem', marginTop: '1rem', fontFamily: 'var(--font-mono)' }}>
+                  ✓ SIGNAL TRANSMITTED SUCCESSFULLY. Arayan will respond shortly.
+                </p>
+              )}
+            </form>
           </div>
 
-          <div className={`form-field ${formFocused.message || formData.message ? 'field-active' : ''}`}>
-            <label htmlFor="message" className="field-label">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              className="field-input field-textarea"
-              rows="1"
-              value={formData.message}
-              onChange={handleInputChange}
-              onFocus={() => handleFocus('message')}
-              onBlur={(e) => handleBlur('message', e.target.value)}
-              required
-            />
-            <div className="field-line" />
-          </div>
-
-          <button type="submit" className="form-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? 'SENDING...' : '[ SEND MESSAGE → ]'}
-          </button>
-
-          {formStatus === 'success' && (
-            <p className="form-success-msg">✓ Message transmitted successfully. Arayan will respond shortly.</p>
-          )}
-        </form>
-
-        {/* Minimal Social Links */}
-        <div className="contact-socials-row reveal delay-4">
-          <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer" className="minimal-social-link">[ GitHub ]</a>
-          <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" className="minimal-social-link">[ LinkedIn ]</a>
-          <a href={`mailto:${PERSONAL.email}`} className="minimal-social-link">[ Email ]</a>
-          <a href="https://wa.me/919064508660" target="_blank" rel="noopener noreferrer" className="minimal-social-link">[ WhatsApp ]</a>
-          <a href={PERSONAL.instagram} target="_blank" rel="noopener noreferrer" className="minimal-social-link">[ Instagram ]</a>
-          <a href={PERSONAL.twitter} target="_blank" rel="noopener noreferrer" className="minimal-social-link">[ Twitter/X ]</a>
         </div>
       </div>
     </section>

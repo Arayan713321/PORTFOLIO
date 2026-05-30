@@ -5,10 +5,11 @@ import { Cursor }     from './components/Cursor';
 import { Navbar }     from './components/Navbar';
 import { MagicLine }  from './components/MagicLine';
 import { Hero }       from './components/Hero';
-import { Projects }   from './components/Projects';
 import { About }      from './components/About';
 import { Skills }     from './components/Skills';
 import { Experience } from './components/Experience';
+import { Projects }   from './components/Projects';
+import { GitHub }     from './components/GitHub';
 import { Education }  from './components/Education';
 import { Contact }    from './components/Contact';
 import { Footer }     from './components/Footer';
@@ -76,10 +77,11 @@ function App() {
         <Navbar />
         <main>
           <Hero ready={appReady} />
-          <Projects />
           <About />
           <Skills />
           <Experience />
+          <Projects />
+          <GitHub />
           <Education />
           <Contact />
         </main>
@@ -102,8 +104,8 @@ function App() {
 {`You found the hidden section.
 
 stack:       react · vite · lenis · pure css
-built:       may 2025
-inspired by: danielspatzek.com
+built:       may 2026
+inspired by: premium cyberpunk aesthetics
 developer:   arayan713321@gmail.com`}
             </pre>
           </div>

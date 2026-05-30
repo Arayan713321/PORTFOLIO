@@ -1,14 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PERSONAL, STATS, ABOUT_TICKER } from '../../data/portfolioData';
-import { useScrollReveal } from '../../hooks/useScrollReveal';
-import { MatrixText } from '../MatrixText';
+import { PERSONAL } from '../../data/portfolioData';
 import './About.css';
-
-const TICKER_DISPLAY = [...ABOUT_TICKER, ...ABOUT_TICKER].join('  ·  ') + '  ·  ';
 
 function AnimatedCounter({ target, suffix }) {
   const [count, setCount] = useState(0);
-  const [done, setDone] = useState(false);
   const ref = useRef(null);
   const started = useRef(false);
 
@@ -26,8 +21,6 @@ function AnimatedCounter({ target, suffix }) {
           setCount(Math.round(eased * target));
           if (pct < 1) {
             requestAnimationFrame(tick);
-          } else {
-            setDone(true);
           }
         };
         requestAnimationFrame(tick);
@@ -39,77 +32,105 @@ function AnimatedCounter({ target, suffix }) {
   }, [target]);
 
   return (
-    <span ref={ref} className="stat-value">
-      {count}
-      {suffix && (
-        <span className={`stat-plus ${done ? 'pulse' : ''}`}>{suffix}</span>
-      )}
+    <span ref={ref} className="stat-num">
+      {count}{suffix}
     </span>
   );
 }
 
 export function About() {
-  const ref = useScrollReveal();
-
   return (
-    <section id="about" className="about section-padding" ref={ref}>
+    <section id="about">
       <div className="container">
-        <div className="section-header-row section-scan">
-          <div className="section-label">
-            <MatrixText text="ABOUT" />
-          </div>
-          <div className="section-year">©® AKS · v2025</div>
-        </div>
-
         <div className="about-grid">
-          {/* Left: Photo with desaturation */}
-          <div className="about-photo reveal-left">
-            <img
-              src="/assets/images/file_000000002bb4720987f47e5467a140ca.png"
-              alt="Arayan Kumar Shaw"
-              loading="lazy"
-            />
-          </div>
-
-          {/* Right: Rich text block */}
-          <div className="about-text">
-            {/* Mixed-scale typography heading */}
-            <h3 className="about-statement-mixed reveal">
-              <span className="statement-serif">(Full-Stack / Mobile</span>
-              <span className="statement-bold">AI Engineer)</span>
-            </h3>
-
-            <p className="about-bio reveal delay-1">
-              B.Tech CSE graduate from University of Engineering and Management, Jaipur (Class of 2026, CGPA 7.5).
-              I specialize in high-performance cross-platform mobile ecosystems, scalable full-stack web architectures, and advanced GenAI workflows. Shipped various production experiences including RAG career companions and live Shopify e-commerce engines.
-            </p>
-
-            {/* Stats block */}
-            <div className="about-stats reveal delay-2">
-              {STATS.map(s => (
-                <div className="stat-item" key={s.label}>
-                  <AnimatedCounter target={s.value} suffix={s.suffix} />
-                  <span className="stat-label">{s.label}</span>
+          
+          {/* Left Column: Dossier */}
+          <div className="about-dossier">
+            <div className="dossier-card">
+              <div className="dossier-header">Subject Dossier</div>
+              <div className="dossier-body">
+                <div className="dossier-avatar">
+                  <img src="/assets/images/arayan-profile.png" alt="Arayan Kumar Shaw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
-              ))}
+                <div className="dossier-field">
+                  <span className="dossier-key">Full Name</span>
+                  <span className="dossier-val">Arayan Kumar Shaw</span>
+                </div>
+                <div className="dossier-field">
+                  <span className="dossier-key">Classification</span>
+                  <span className="dossier-val">Full Stack · Mobile · AI Builder</span>
+                </div>
+                <div className="dossier-field">
+                  <span className="dossier-key">Location</span>
+                  <span className="dossier-val">India</span>
+                </div>
+                <div className="dossier-field">
+                  <span className="dossier-key">Education</span>
+                  <span className="dossier-val">B.Tech CSE · UEM Jaipur · 7.5 CGPA</span>
+                </div>
+                <div className="dossier-field">
+                  <span className="dossier-key">Batch</span>
+                  <span className="dossier-val">2022 – 2026</span>
+                </div>
+                <div className="dossier-field">
+                  <span className="dossier-key">Status</span>
+                  <span className="status-pill">Open to Work</span>
+                </div>
+              </div>
             </div>
 
-            <a
-              href={PERSONAL.resumeUrl}
-              download="Arayan_Kumar_Shaw_Resume.pdf"
-              className="btn-outline reveal delay-3"
-            >
-              Download Resume ↓
-            </a>
+            <div className="dossier-card">
+              <div className="dossier-header">Quick Links</div>
+              <div className="dossier-body" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <a href="https://syntrix-ai-nu.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn btn-cyan" style={{ fontSize: '0.62rem', justifyContent: 'center' }}>⚡ Syntrix AI</a>
+                <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ fontSize: '0.62rem', justifyContent: 'center' }}>⌥ GitHub Profile</a>
+                <a href="https://portfolio-two-eosin-49.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ fontSize: '0.62rem', justifyContent: 'center' }}>↗ Portfolio</a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Infinite scrolling ticker below */}
-      <div className="about-ticker-wrap">
-        <div className="about-ticker-track">
-          <span>{TICKER_DISPLAY}</span>
-          <span aria-hidden>{TICKER_DISPLAY}</span>
+          {/* Right Column: Copy & Stats */}
+          <div className="about-copy">
+            <div className="s-label">About Me</div>
+            <h2 className="s-title">
+              Engineer by Training.<br />
+              <span style={{ color: 'var(--cyan)' }}>Founder</span> by Instinct.
+            </h2>
+            
+            <div className="about-stats">
+              <div className="stat-box">
+                <AnimatedCounter target={3} suffix="" />
+                <span className="stat-lbl">Internships</span>
+              </div>
+              <div className="stat-box">
+                <AnimatedCounter target={6} suffix="+" />
+                <span className="stat-lbl">Products Built</span>
+              </div>
+              <div className="stat-box">
+                <span className="stat-num">7.5</span>
+                <span className="stat-lbl">CGPA</span>
+              </div>
+            </div>
+
+            <p>
+              I'm <strong>Arayan Kumar Shaw</strong>, a B.Tech CSE graduate who doesn't wait for permission to build things. While most graduates submit assignments, I was shipping <span className="accent-cyan">production-grade AI systems</span>. Syntrix AI — a full-stack career intelligence platform — was architected, built, and deployed by me alone.
+            </p>
+            <p>
+              My technical identity spans three layers: <strong>the web</strong> (Next.js, React, TypeScript, Tailwind), <strong>mobile</strong> (React Native, Flutter, Dart — across internships at Celebal Technologies and Tamizhan Skills), and increasingly, <strong>AI</strong> — OpenAI APIs, LangChain, ChromaDB vector search, RAG pipelines, and conversational AI flows.
+            </p>
+            <p>
+              I've reduced app startup times by 1.5 seconds through widget tree optimization, improved Shopify LCP scores on live e-commerce stores, and built real-time chat infrastructure with Socket.io from the ground up. I understand the full stack — not from tutorials, but from production debugging at 2am.
+            </p>
+            <p>
+              Beyond code, I led a 10-member performance team as <strong>Lead Choreographer</strong> for university cultural events and managed logistics as Operations Coordinator for public speaking events. I lead from the front — in any context.
+            </p>
+            
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+              <a href="#projects" className="btn btn-cyan">See My Work →</a>
+              <a href={`mailto:${PERSONAL.email}`} className="btn btn-ghost">{PERSONAL.email}</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

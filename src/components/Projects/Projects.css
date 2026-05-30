@@ -1,458 +1,167 @@
-/* ── Projects section — NO overflow:hidden ── */
-.projects {
-  background: var(--bg, #050508);
-  overflow: visible; /* CRITICAL: allows overlay to escape */
+/* ── PROJECTS ── */
+#projects {
+  background: var(--bg);
+  padding: 6rem 0;
 }
 
-/* ── Full-width strip container ── */
-.p-strips {
-  width: 100%;
-  overflow: visible;
+.projects-mosaic {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
 }
 
-/* ── Scroll reveal for strips (gated by in-view) ── */
-.p-strip-wrapper.reveal {
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--stagger, 0s),
-    transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--stagger, 0s);
-  width: 100%;
-}
-
-.p-strip-wrapper.reveal.in-view {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-/* ── Base strip ── */
-.p-strip {
+.proj-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.75rem;
   position: relative;
-  width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: visible;
-  cursor: pointer;
-  transition:
-    padding 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    background 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.p-strip-wrapper:first-child .p-strip {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-/* ── DRAMATIC hover — expands, glows ── */
-.p-strip--hovered {
-  padding-top: 16px;
-  padding-bottom: 16px;
-  background: rgba(0, 212, 255, 0.025);
-}
-
-/* ── Watermark number ── */
-.p-watermark {
-  position: absolute;
-  left: clamp(20px, 4vw, 60px);
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(4rem, 8vw, 8rem);
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.05);
-  user-select: none;
-  pointer-events: none;
-  transition: color 0.4s ease, opacity 0.4s ease;
-  z-index: 0;
-}
-
-.p-strip--hovered .p-watermark {
-  color: rgba(0, 212, 255, 0.10);
-}
-
-/* ── Project image preview (slides from right on hover) ── */
-.p-img-wrap {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 38%;
   overflow: hidden;
-  transform: translateX(100%);
-  opacity: 0;
-  transition:
-    transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 0;
+  backdrop-filter: blur(20px);
+  transition: all 0.35s var(--ease);
+  display: flex;
+  flex-direction: column;
 }
 
-.p-img-wrap.visible {
-  transform: translateX(0);
+.proj-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-4px);
+}
+
+.proj-card:hover .proj-glow {
   opacity: 1;
 }
 
-.p-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.5) saturate(0.6);
-  transition: filter 0.4s ease;
-}
-
-.p-strip--hovered .p-img-wrap img {
-  filter: brightness(0.35) saturate(0.5);
-}
-
-/* fade gradient over image */
-.p-img-wrap::before {
-  content: '';
+.proj-glow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, #050508 0%, transparent 40%);
-  z-index: 1;
+  opacity: 0;
+  transition: 0.4s;
   pointer-events: none;
+  background: radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.06) 0%, transparent 60%);
 }
 
-/* ── Strip inner layout ── */
-.p-strip-inner {
-  position: relative;
-  z-index: 2;
+.proj-card.span7 { grid-column: span 7; }
+.proj-card.span5 { grid-column: span 5; }
+.proj-card.span6 { grid-column: span 6; }
+.proj-card.span4 { grid-column: span 4; }
+
+.proj-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+}
+
+.proj-id {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+}
+
+.proj-icon-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 28px clamp(20px, 6vw, 80px);
-  gap: 24px;
+  margin-bottom: 1.25rem;
 }
 
-/* ── Left side ── */
-.p-left { flex: 1; min-width: 0; }
-
-.p-tags {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 6px;
-  flex-wrap: wrap;
-}
-
-.p-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 2px;
-  color: var(--text-muted, #4b5563);
-  text-transform: uppercase;
-}
-
-.p-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 2px;
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  padding: 2px 8px;
-  text-transform: uppercase;
-}
-
-/* ── Project name — cinematic swap on hover ── */
-.p-name {
-  position: relative;
-  overflow: hidden;
-  display: block;
-  line-height: 0.9;
-}
-
-.p-name-default,
-.p-name-hover {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(2.2rem, 5vw, 5rem);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  line-height: 0.9;
-  display: block;
-  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.p-name-default {
-  color: #e8eaf0;
-}
-
-.p-name-hover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  color: #00d4ff;
-  font-style: italic;
-  letter-spacing: 0.02em;
-  transform: translateY(110%);
-}
-
-.p-strip--hovered .p-name-default { transform: translateY(-110%); }
-.p-strip--hovered .p-name-hover   { transform: translateY(0); }
-
-/* ── Subtitle ── */
-.p-subtitle {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--text-muted, #4b5563);
-  margin-top: 4px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
-}
-
-.p-strip--hovered .p-subtitle {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── Right side ── */
-.p-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.p-year {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--text-muted, #4b5563);
-}
-
-/* Arrow — slides in from left on hover (as per spec) */
-.p-arrow-wrap {
-  overflow: hidden;
-  height: 1.4em;
+.proj-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
 }
 
-.p-arrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  color: var(--cyan, #00d4ff);
-  display: block;
-  opacity: 0;
-  transform: translateX(-24px);
-  transition:
-    opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap;
-}
-
-.p-strip--hovered .p-arrow {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ═══════════════════════════════════════════════
-   OVERLAY — fixed, above everything, fully clickable
-   ═══════════════════════════════════════════════ */
-.p-overlay {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 99999 !important;
-  background: rgba(5, 5, 8, 0.75);
-  display: flex;
-  align-items: flex-end;
-  pointer-events: all !important;
-  animation: overlayFadeIn 0.3s ease;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-@keyframes overlayFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-.p-overlay-panel {
-  width: 100%;
-  max-height: 88vh;
-  background: #0a0a12;
-  border-top: 1px solid rgba(0, 212, 255, 0.25);
-  padding: clamp(24px, 4vw, 60px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  pointer-events: all !important;
-  position: relative;
-  z-index: 100000 !important;
-  animation: panelSlideUp 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-@keyframes panelSlideUp {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
-}
-
-.p-overlay-close {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 2px;
-  color: var(--text-muted, #4b5563);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 8px 16px;
-  background: none;
-  cursor: pointer !important;
-  pointer-events: all !important;
-  margin-bottom: 36px;
-  transition: color 0.2s ease, border-color 0.2s ease;
-  display: inline-block;
-  position: relative;
-  z-index: 100001;
-}
-
-.p-overlay-close:hover {
-  color: #e8eaf0;
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.p-overlay-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 28px;
-}
-
-.p-overlay-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--cyan, #00d4ff);
-  opacity: 0.5;
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-
-.p-overlay-name {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(2rem, 5vw, 4rem);
-  letter-spacing: 2px;
-  color: #e8eaf0;
+.proj-badge {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--cyan);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  background: rgba(0, 229, 255, 0.06);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  line-height: 1;
 }
 
-.p-overlay-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  color: var(--text-muted, #4b5563);
-  margin-top: 6px;
+.proj-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  margin-bottom: 0.75rem;
 }
 
-/* Image in overlay */
-.p-overlay-img {
-  width: 100%;
-  max-height: 240px;
-  overflow: hidden;
-  margin-bottom: 32px;
-  border: 1px solid rgba(0, 212, 255, 0.1);
+.proj-card.span7 .proj-name {
+  font-size: 1.5rem;
 }
 
-.p-overlay-img img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  filter: brightness(0.85) saturate(0.8);
+.proj-desc {
+  font-size: 0.83rem;
+  color: var(--text2);
+  line-height: 1.75;
+  flex: 1;
+  margin-bottom: 1.25rem;
 }
 
-.p-overlay-body {}
-
-.p-overlay-meta {
-  display: flex;
-  gap: 40px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.meta-label {
-  display: block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text-muted, #4b5563);
-  margin-bottom: 4px;
-}
-
-.meta-value {
-  display: block;
-  font-size: 0.9rem;
-  color: #e8eaf0;
-}
-
-.p-overlay-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.06);
-  margin: 20px 0;
-}
-
-.p-overlay-desc {
-  font-size: 0.97rem;
-  line-height: 1.85;
-  color: rgba(232, 234, 240, 0.65);
-  max-width: 680px;
-  margin-bottom: 28px;
-}
-
-.p-overlay-stack {
+.proj-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 32px;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
 }
 
-.stack-pill {
-  font-family: 'JetBrains Mono', monospace;
+.proj-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text3);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.18rem 0.55rem;
+}
+
+.proj-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.proj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
-  letter-spacing: 1px;
-  color: var(--cyan, #00d4ff);
-  border: 1px solid rgba(0, 212, 255, 0.2);
-  padding: 5px 12px;
-  background: rgba(0, 212, 255, 0.04);
+  color: var(--cyan);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: 0.2s;
 }
 
-.p-overlay-links {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 100001;
+.proj-link:hover {
+  gap: 0.55rem;
 }
 
-/* Ensure all links in overlay are always clickable */
-.p-overlay-links a,
-.p-overlay-close {
-  pointer-events: all !important;
-  cursor: pointer !important;
-}
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .p-strip-inner {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width: 1024px) {
+  .projects-mosaic {
+    grid-template-columns: 1fr;
   }
-
-  .p-right {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .p-watermark {
-    font-size: 4rem;
-    opacity: 0.04;
-  }
-
-  .p-arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .p-img-wrap {
-    display: none; /* hide on mobile to avoid layout issues */
+  .proj-card.span7,
+  .proj-card.span5,
+  .proj-card.span6,
+  .proj-card.span4 {
+    grid-column: span 1;
   }
 }

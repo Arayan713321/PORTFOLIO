@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './MagicLine.css';
 
 const SECTIONS = [
-  { id: 'home',       label: 'INTRO',      color: '#00d4ff' }, // Cyan
-  { id: 'projects',   label: 'WORK',       color: '#00ff88' }, // Emerald Green
-  { id: 'about',      label: 'ABOUT',      color: '#ff007f' }, // Rose Pink
-  { id: 'skills',     label: 'SKILLS',     color: '#f59e0b' }, // Golden Yellow
-  { id: 'experience', label: 'EXPERIENCE', color: '#a855f7' }, // Royal Purple
-  { id: 'education',  label: 'EDUCATION',  color: '#3b82f6' }, // Electric Blue
-  { id: 'contact',    label: 'CONTACT',    color: '#f97316' }, // Fiery Orange
+  { id: 'hero',           label: 'INTRO',       color: '#00E5FF' }, // Cyan
+  { id: 'about',          label: 'ABOUT',       color: '#FF2D78' }, // Magenta
+  { id: 'skills',         label: 'SKILLS',      color: '#FF9F2D' }, // Amber
+  { id: 'experience',     label: 'EXP',         color: '#8B5CF6' }, // Violet
+  { id: 'projects',       label: 'WORK',        color: '#00E5FF' }, // Cyan
+  { id: 'github',         label: 'GITHUB',      color: '#39FF6E' }, // Green
+  { id: 'certifications', label: 'CREDS',       color: '#8B5CF6' }, // Violet
+  { id: 'contact',        label: 'CONTACT',     color: '#FF2D78' }, // Magenta
 ];
 
 export function MagicLine() {
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +40,7 @@ export function MagicLine() {
 
   const activeIndex = SECTIONS.findIndex(sec => sec.id === activeSection);
   const fillPercent = (activeIndex / (SECTIONS.length - 1)) * 100;
-  const activeColor = SECTIONS[activeIndex]?.color || '#00d4ff';
+  const activeColor = SECTIONS[activeIndex]?.color || '#00E5FF';
 
   return (
     <div 

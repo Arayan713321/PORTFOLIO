@@ -3,39 +3,27 @@ import { PERSONAL } from '../../data/portfolioData';
 import './Navbar.css';
 
 const NAV_ITEMS = [
-  { label: 'Work',    href: '#projects' },
-  { label: 'About',   href: '#about' },
-  { label: 'Skills',  href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'ABOUT', href: '#about' },
+  { label: 'SKILLS', href: '#skills' },
+  { label: 'EXP', href: '#experience' },
+  { label: 'PROJECTS', href: '#projects' },
+  { label: 'CERTS', href: '#certifications' },
+  { label: 'CONTACT', href: '#contact' },
 ];
 
 export function Navbar() {
-  const [scrolled,  setScrolled]  = useState(false);
-  const [hidden,    setHidden]    = useState(false);
-  const [menuOpen,  setMenuOpen]  = useState(false);
-  const [active,    setActive]    = useState('#home');
-  const lastY = useRef(0);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState('#about');
 
-  // Scroll behavior
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 60);
-      setHidden(y > lastY.current && y > 120);
-      lastY.current = y;
-
-      const progressEl = document.querySelector('.scroll-progress');
-      if (progressEl) {
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = totalHeight > 0 ? y / totalHeight : 0;
-        progressEl.style.width = `${progress * 100}%`;
-      }
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Active section
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]');
     const obs = new IntersectionObserver(
@@ -57,72 +45,45 @@ export function Navbar() {
 
   return (
     <>
-      <div className="scroll-progress" />
-      <nav className={`nav ${scrolled ? 'scrolled' : ''} ${hidden ? 'hidden' : ''}`}>
-        <div className="nav-inner container">
-          {/* Monogram */}
-          <a
-            href="#home"
-            className="nav-mono"
-            onClick={e => { e.preventDefault(); scrollTo('#home'); }}
-          >
-            AKS
-          </a>
-
-          {/* Desktop links */}
-          <ul className="nav-links">
-            {NAV_ITEMS.map(item => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className={`nav-link ${active === item.href ? 'active' : ''}`}
-                  onClick={e => { e.preventDefault(); scrollTo(item.href); }}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* Hamburger */}
-          <button
-            className={`hamburger ${menuOpen ? 'open' : ''}`}
-            onClick={() => setMenuOpen(o => !o)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            <span /><span /><span />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile full-screen overlay */}
-      <div className={`mobile-overlay ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
-        <ul className="mobile-links">
-          {NAV_ITEMS.map((item, i) => (
-            <li
-              key={item.href}
-              style={{ animationDelay: `${0.05 + i * 0.08}s` }}
-              className={menuOpen ? 'slide-in' : ''}
-            >
+      <nav id="nav" className={scrolled ? 'scrolled' : ''}>
+        <a 
+          className="nav-logo" 
+          href="#hero"
+          onClick={e => { e.preventDefault(); scrollTo('#hero'); }}
+        >
+          AKS<span>://dev</span>
+        </a>
+        <ul className="nav-links">
+          {NAV_ITEMS.map(item => (
+            <li key={item.href}>
               <a
                 href={item.href}
+                className={active === item.href ? 'active' : ''}
                 onClick={e => { e.preventDefault(); scrollTo(item.href); }}
               >
-                <span className="m-num">0{i + 1}</span>
                 {item.label}
               </a>
             </li>
           ))}
-          <li
-            className={menuOpen ? 'slide-in' : ''}
-            style={{ animationDelay: '0.37s' }}
-          >
-            <a href={PERSONAL.resumeUrl} download className="m-resume">
-              Resume ↓
-            </a>
-          </li>
         </ul>
+        <div className="nav-right">
+          <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">GitHub</a>
+          <a href={`mailto:${PERSONAL.email}`} className="btn btn-cyan">Hire Me</a>
+        </div>
+        <button className={`hamburger ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+      <div className={`mob-menu ${menuOpen ? 'open' : ''}`} id="mobMenu">
+        {NAV_ITEMS.map(item => (
+          <a
+            key={item.href}
+            href={item.href}
+            onClick={e => { e.preventDefault(); scrollTo(item.href); }}
+          >
+            {item.label}
+          </a>
+        ))}
       </div>
     </>
   );

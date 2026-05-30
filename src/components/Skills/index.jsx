@@ -1,98 +1,79 @@
 import React from 'react';
-import {
-  SKILLS_MARQUEE_ROW1,
-  SKILLS_MARQUEE_ROW2
-} from '../../data/portfolioData';
-import { useScrollReveal } from '../../hooks/useScrollReveal';
-import { MatrixText } from '../MatrixText';
 import './Skills.css';
 
-const row1 = [...SKILLS_MARQUEE_ROW1, ...SKILLS_MARQUEE_ROW1].map(t => `${t} ·`).join('  ');
-const row2 = [...SKILLS_MARQUEE_ROW2, ...SKILLS_MARQUEE_ROW2].map(t => `${t} ·`).join('  ');
-
-const NEW_SKILL_CATEGORIES = [
+const SKILLS_LIST = [
   {
-    title: 'MOBILE',
-    skills: ['React Native', 'Expo', 'Flutter', 'Dart', 'Android']
+    title: 'Frontend',
+    icon: '⚡',
+    accent: 'linear-gradient(90deg, var(--cyan), var(--violet))',
+    iconBg: 'rgba(0, 229, 255, 0.08)',
+    iconBorder: 'rgba(0, 229, 255, 0.15)',
+    skills: ['React.js', 'Next.js', 'TypeScript', 'JavaScript ES6+', 'HTML5', 'CSS3', 'Tailwind CSS', 'Framer Motion']
   },
   {
-    title: 'FRONTEND',
-    skills: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5', 'CSS3']
+    title: 'Mobile',
+    icon: '📱',
+    accent: 'linear-gradient(90deg, #39FF6E, var(--cyan))',
+    iconBg: 'rgba(57, 255, 110, 0.06)',
+    iconBorder: 'rgba(57, 255, 110, 0.15)',
+    skills: ['React Native', 'Flutter', 'Expo', 'Dart', 'Clean Architecture', 'Android', 'Firebase Auth', 'Push Notifications']
   },
   {
-    title: 'AI / GENAI',
-    skills: ['OpenAI API', 'LangChain', 'ChromaDB', 'RAG Architecture', 'Prompt Engineering', 'Vector Embeddings']
+    title: 'AI / GenAI',
+    icon: '🤖',
+    accent: 'linear-gradient(90deg, var(--violet), var(--magenta))',
+    iconBg: 'rgba(139, 92, 246, 0.08)',
+    iconBorder: 'rgba(139, 92, 246, 0.15)',
+    skills: ['OpenAI API', 'LangChain', 'RAG Architecture', 'ChromaDB', 'Vector Embeddings', 'Semantic Search', 'Prompt Engineering', 'Conversational AI']
   },
   {
-    title: 'BACKEND',
-    skills: ['Node.js', 'Express.js', 'Socket.io', 'REST APIs', 'JWT', 'WebSockets']
+    title: 'Backend',
+    icon: '⚙️',
+    accent: 'linear-gradient(90deg, var(--amber), var(--magenta))',
+    iconBg: 'rgba(255, 159, 45, 0.08)',
+    iconBorder: 'rgba(255, 159, 45, 0.15)',
+    skills: ['Node.js', 'Express.js', 'REST APIs', 'Socket.io', 'JWT Auth', 'WebSockets']
   },
   {
-    title: 'CMS & E-COMMERCE',
-    skills: ['Shopify Liquid', 'Theme Development', 'Storefront API', 'WordPress', 'Core Web Vitals']
+    title: 'Databases & Cloud',
+    icon: '🗄️',
+    accent: 'linear-gradient(90deg, var(--cyan), #39FF6E)',
+    iconBg: 'rgba(0, 229, 255, 0.06)',
+    iconBorder: 'rgba(0, 229, 255, 0.12)',
+    skills: ['MongoDB', 'Firebase', 'Firestore', 'Vercel', 'Railway', 'Render']
   },
   {
-    title: 'CLOUD & TOOLS',
-    skills: ['Firebase', 'MongoDB', 'Firestore', 'Vercel', 'Railway', 'Git', 'GitHub', 'Postman']
+    title: 'CMS & E-Commerce',
+    icon: '🛍️',
+    accent: 'linear-gradient(90deg, var(--magenta), var(--violet))',
+    iconBg: 'rgba(255, 45, 120, 0.06)',
+    iconBorder: 'rgba(255, 45, 120, 0.12)',
+    skills: ['Shopify Liquid', 'Storefront API', 'Theme Dev', 'Metafields', 'Core Web Vitals', 'WordPress', 'Git', 'GitHub Copilot']
   }
 ];
 
 export function Skills() {
-  const ref = useScrollReveal();
-
   return (
-    <section id="skills" className="skills section-padding" ref={ref}>
-      <div className="container">
-        <div className="section-header-row section-scan">
-          <div className="section-label">
-            <MatrixText text="SKILLS &amp; TECHNOLOGIES" />
-          </div>
-          <div className="section-year">TOOLS · EXPERT</div>
-        </div>
-      </div>
-
-      {/* Marquee rows */}
-      <div className="skills-marquees">
-        <div className="sk-marquee-outer">
-          <div className="sk-marquee-track">
-            <span>{row1}</span>
-            <span aria-hidden>{row1}</span>
-          </div>
-        </div>
-        <div className="sk-marquee-outer sk-marquee-reverse">
-          <div className="sk-marquee-track">
-            <span>{row2}</span>
-            <span aria-hidden>{row2}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="container">
-        {/* Section Intro Line */}
-        <div className="skills-intro reveal">
-          [ 6 CATEGORIES · 40+ TECHNOLOGIES ]
-        </div>
-
-        {/* New Visual Redesigned Cards */}
+    <section id="skills" className="skills-section">
+      <canvas id="skillsCanvas" style={{ position: 'absolute', inset: 0, opacity: 0.4 }}></canvas>
+      <div className="container skills-inner">
+        <div className="s-label">Technical Arsenal</div>
+        <h2 class="s-title">The Stack That Ships</h2>
+        <p className="s-sub">Every technology below was used in a real project — not a tutorial. From RAG pipelines to Shopify Liquid, this is a working skill set.</p>
+        
         <div className="skills-grid">
-          {NEW_SKILL_CATEGORIES.map((cat, i) => (
-            <div
-              className="skill-card reveal"
-              key={cat.title}
-              style={{ transitionDelay: `${i * 0.08}s` }}
-            >
-              {/* Big watermark number top-left */}
-              <div className="skill-card-number" aria-hidden>
-                {String(i + 1).padStart(2, '0')}
+          {SKILLS_LIST.map((category, idx) => (
+            <div key={idx} className="skill-card">
+              <div className="sk-accent" style={{ background: category.accent }}></div>
+              <div className="sk-head">
+                <div className="sk-icon" style={{ background: category.iconBg, border: `1px solid ${category.iconBorder}` }}>
+                  {category.icon}
+                </div>
+                <span className="sk-name">{category.title}</span>
               </div>
-
-              {/* Category title */}
-              <h3 className="skill-card-title">{cat.title}</h3>
-
-              {/* Skill tags/pills */}
-              <div className="skill-tags-container">
-                {cat.skills.map(s => (
-                  <span key={s} className="skill-tag">{s}</span>
+              <div className="sk-pills">
+                {category.skills.map((skill, sIdx) => (
+                  <span key={sIdx} className="sk-pill">{skill}</span>
                 ))}
               </div>
             </div>
