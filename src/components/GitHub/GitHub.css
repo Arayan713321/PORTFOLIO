@@ -278,24 +278,6 @@
   border-radius: 2px;
 }
 
-@media (max-width: 768px) {
-  .gh-sidebar {
-    padding: 1rem;
-  }
-  .gh-main {
-    padding: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .repo-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-    padding: 0.75rem;
-  }
-}
-
 @media (max-width: 1024px) {
   .gh-inner {
     grid-template-columns: 1fr;
@@ -303,5 +285,67 @@
   .gh-sidebar {
     border-right: none;
     border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 768px) {
+  .gh-sidebar {
+    padding: 1.25rem;
+  }
+  
+  /* Convert vertical stats list into horizontal cards */
+  .gh-stats-mini {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .gh-stat-row {
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    padding: 0.65rem 0.5rem;
+    border-radius: 3px;
+    flex: 1;
+  }
+  
+  .gh-stat-key {
+    font-size: 0.52rem;
+    margin-bottom: 0.2rem;
+    text-align: center;
+  }
+  
+  .gh-stat-v {
+    font-size: 0.85rem;
+  }
+
+  .gh-main {
+    padding: 1.25rem;
+  }
+  
+  /* Hide the massive contributions calendar grid entirely to save vertical space */
+  .contributions-title,
+  .contrib-grid-wrapper,
+  .contrib-legend {
+    display: none !important;
+  }
+
+  /* Style repositories as individual cards rather than thin lines */
+  .gh-repos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .repo-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 3px;
   }
 }

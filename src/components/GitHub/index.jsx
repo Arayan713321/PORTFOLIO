@@ -74,7 +74,7 @@ export function GitHub() {
 
             {/* Contributions Grid & Repos */}
             <div className="gh-main">
-              <div className="gh-section-title">Contributions Calendar</div>
+              <div className="gh-section-title contributions-title">Contributions Calendar</div>
               
               <div className="contrib-grid-wrapper">
                 <div className="contrib-grid">
