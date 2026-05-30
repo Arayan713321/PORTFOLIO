@@ -10,7 +10,7 @@
   width: 16px; /* Bounding width for perfect centering */
   z-index: 990; /* Sits behind navbar overlays but above content */
   pointer-events: all;
-  transition: --active-theme-color 0.5s ease;
+  transition: opacity 0.3s ease, --active-theme-color 0.5s ease;
 }
 
 /* Background spine guide line */
@@ -146,6 +146,10 @@
     top: 25vh;
     height: 50vh;
     width: 10px;
+    opacity: 0.35;
+  }
+  .magic-line-spine:hover {
+    opacity: 0.85;
   }
   .spine-node-label {
     display: none !important; /* Hide labels on mobile to avoid overlapping */
@@ -171,6 +175,10 @@
     height: 56vh;
     width: 8px;
     display: block !important;
+    opacity: 0.25;
+  }
+  .magic-line-spine:hover {
+    opacity: 0.75;
   }
   .spine-track {
     width: 1px;
